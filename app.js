@@ -143,4 +143,18 @@ document.addEventListener("DOMContentLoaded", ()=> {
     new Ghost('inky', 351, 300),
     new Ghost('clyde', 379, 500)
    ]
+
+
+   ghosts.forEach(ghost => {
+    squares[ghost.currentIndex].classList.add(ghost.className)
+    squares[ghost.currentIndex].classList.add('ghost')
+   })
+
+   // move ghosts randomly
+
+   ghosts.forEach(ghost => moveGhost(ghost))
+
+   function moveGhost() {
+    
+   }
 })
