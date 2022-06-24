@@ -125,6 +125,28 @@ document.addEventListener("DOMContentLoaded", ()=> {
     }
    }
 
+  // What happens when you eat a power-pellet
+   
+  function powerPelletEaten() {
+    if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
+        score += 10
+        ghosts.forEach(ghosts => ghosts.isScared = true)
+    }
+  }
+
+  // make the ghosts stop being aquamarine
+
+  function unScareGhosts() {
+
+  }
+
+
+
+
+
+
+
+
    // Ghost template
    class Ghost {
     constructor(className, startIndex, speed) {
