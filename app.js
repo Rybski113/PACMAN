@@ -131,13 +131,15 @@ document.addEventListener("DOMContentLoaded", ()=> {
     if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
         score += 10
         ghosts.forEach(ghosts => ghosts.isScared = true)
+        setTimeout(unScareGhosts, 10000)
+        squares[pacmanCurrentIndex].classList.remove('power-pellet')
     }
   }
 
   // make the ghosts stop being aquamarine
 
   function unScareGhosts() {
-
+     ghosts.forEach(ghosts => ghosts.isScared = false)
   }
 
 
@@ -155,6 +157,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
         this.speed = speed
         this.currentIndex = startIndex
         this.timerId = NaN
+        this.isScared = false
     }
    }
    
