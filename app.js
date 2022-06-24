@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
     const grid = document.querySelector('.grid')
     const scoreDisplay = document.getElementById("score")
     const width = 28 // 28 x 28 = 784 squares
+    let score = 0
 
     //layout of grid and whats is in the squares
 
@@ -101,9 +102,25 @@ document.addEventListener("DOMContentLoaded", ()=> {
     }
 
     squares[pacmanCurrentIndex].classList.add('pac-man')
+
+
+    pacDotEaten()
+
   }
+
+  
 
 
   document.addEventListener('keyup', movePacman)
 
+
+   function pacDotEaten() {
+    if(squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
+        score ++
+        scoreDisplay.innerHTML = score
+        squares[pacmanCurrentIndex].classList.remove('pac-dot')
+    }
+   }
+
+   
 })
