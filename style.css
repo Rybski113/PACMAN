@@ -5,3 +5,23 @@
     height: 500px;
     border: solid black 1px;
 }
+
+.grid div {
+    width: 20px;
+    height: 20px;
+}
+
+.pac-dot {
+    background-color: blue;
+    border: 5px solid white;
+    box-sizing: border-box;
+}
+
+.wall {
+    background-color: red;
+}
+
+.power-pellet {
+    background-color: green;
+    border-radius: 10px;
+}
