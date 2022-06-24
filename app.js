@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
 
     pacDotEaten()
-    //powerPelletEaten()
+    powerPelletEaten()
     //checkForGameOver()
     //checkForWin()
 
@@ -195,11 +195,34 @@ document.addEventListener("DOMContentLoaded", ()=> {
             squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
             // else find a new direction
         } else direction = directions[Math.floor(Math.random() * directions.length)]
-      },ghost.speed)
+      
+    
+        //if the ghost is currently scared
+        if (ghost.isScared) {
+            squares[ghost.currentIndex].classList.add('scared-ghost')
+        }
+    
+        // if the ghost is scared and pacman runs into it
+        if(ghost.isScared && squares[ghosts.currentIndex].classList.contains('pac-man')) {
+            squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+            ghost.currentIndex = ghots.startIndex
+            score += 100
+            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+        }
+    
+    
+    
+    
+    
+    }, ghost.speed)
    }
 
 
+//check for game over
 
+function checkForGameOver() {
+    
+}
 
 
 
