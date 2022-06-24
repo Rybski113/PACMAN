@@ -154,7 +154,32 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
    ghosts.forEach(ghost => moveGhost(ghost))
 
-   function moveGhost() {
-    
+   function moveGhost(ghost) {
+      const directions = [-1, +1, width, -width]
+      let direction = directions[Math.floor(Math.random() * directions.length)]
+
+      ghost.timerId = setInterval(function() {
+         // if next square where ghost goes is not wall and a ghost, you can go there
+        if(!squares[ghost.currentIndex + direction].classList.contains('wall') && !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
+            // you can go here
+            // remove all ghost related
+            squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+            // change currentIndex to new safe square
+
+
+
+            // else find a new direction
+        } else direction = direction[Math.floor(Math.random() * directions.length)]
+      })
    }
+
+
+
+
+
+
+
+
+
+
 })
