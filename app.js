@@ -165,12 +165,12 @@ document.addEventListener("DOMContentLoaded", ()=> {
             // remove all ghost related
             squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
             // change currentIndex to new safe square
-
-
-
+            ghost.currentIndex += direction
+            //redraw the ghost in new safe space
+            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
             // else find a new direction
-        } else direction = direction[Math.floor(Math.random() * directions.length)]
-      })
+        } else direction = directions[Math.floor(Math.random() * directions.length)]
+      },ghost.speed)
    }
 
 
