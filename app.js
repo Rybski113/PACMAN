@@ -142,6 +142,38 @@ document.addEventListener("DOMContentLoaded", ()=> {
      ghosts.forEach(ghosts => ghosts.isScared = false)
   }
 
+// better ghosts moving
+
+let blinkyCurrentyIndex = 197
+squares[blinkyCurrentyIndex].classList.add('blinky')
+
+
+function getCoordinates(index) {
+    return [index % width, Math.floor(index / width) ]
+}
+
+console.log(getCoordinates(502))
+
+
+// move blinky
+
+function moveBlinky() {
+    const directions = [-1, +1, +width, -width]
+    let direction = directions[Math.floor(Math.random() * directions.length)]
+
+    let ghostTimerId = NaN
+
+    ghostTimerId = setInterval(function() {
+
+        if (!squares[blinkyCurrentyIndex + direction].classList.contains('contains'){
+        // remove ghost class
+        squares[blinkyCurrentyIndex].classList.remove('blinky')
+        blinkyCurrentyIndex += direction
+        squares[blinkyCurrentyIndex].classList.add('blinky')
+        }
+    },300)
+}
+  
 
 
 
@@ -149,74 +181,12 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
 
 
-   // Ghost template
-   class Ghost {
-    constructor(className, startIndex, speed) {
-        this.className = className
-        this.startIndex = startIndex
-        this.speed = speed
-        this.currentIndex = startIndex
-        this.timerId = NaN
-        this.isScared = false
-    }
-   }
+
+
+
+
+
    
-
-   ghosts = [
-    new Ghost('blinky', 348, 250),
-    new Ghost('pinky', 376, 400),
-    new Ghost('inky', 351, 300),
-    new Ghost('clyde', 379, 500)
-   ]
-
-
-   ghosts.forEach(ghost => {
-    squares[ghost.currentIndex].classList.add(ghost.className)
-    squares[ghost.currentIndex].classList.add('ghost')
-   })
-
-   // move ghosts randomly
-
-   ghosts.forEach(ghost => moveGhost(ghost))
-
-   function moveGhost(ghost) {
-      const directions = [-1, +1, width, -width]
-      let direction = directions[Math.floor(Math.random() * directions.length)]
-
-      ghost.timerId = setInterval(function() {
-         // if next square where ghost goes is not wall and a ghost, you can go there
-        if(!squares[ghost.currentIndex + direction].classList.contains('wall') && !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
-            // you can go here
-            // remove all ghost related
-            squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
-            // change currentIndex to new safe square
-            ghost.currentIndex += direction
-            //redraw the ghost in new safe space
-            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-            // else find a new direction
-        } else direction = directions[Math.floor(Math.random() * directions.length)]
-      
-    
-        //if the ghost is currently scared
-        if (ghost.isScared) {
-            squares[ghost.currentIndex].classList.add('scared-ghost')
-        }
-    
-        // if the ghost is scared and pacman runs into it
-        if(ghost.isScared && squares[ghosts.currentIndex].classList.contains('pac-man')) {
-            squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
-            ghost.currentIndex = ghots.startIndex
-            score += 100
-            squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-        }
-    
-    
-    
-    
-    
-    }, ghost.speed)
-   }
-
 
 //check for game over
 
