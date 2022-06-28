@@ -165,16 +165,16 @@ function moveBlinky() {
 
     ghostTimerId = setInterval(function() {
 
-        if (!squares[blinkyCurrentyIndex + direction].classList.contains('contains'){
+        if (!squares[blinkyCurrentyIndex + direction].classList.contains('wall')) {
         // remove ghost class
         squares[blinkyCurrentyIndex].classList.remove('blinky')
         blinkyCurrentyIndex += direction
         squares[blinkyCurrentyIndex].classList.add('blinky')
-        }
+        } else direction = directions[Math.floor(Math.random() * directions.length)]
     },300)
 }
   
-
+moveBlinky()
 
 
 
