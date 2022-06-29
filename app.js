@@ -164,16 +164,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
      // eating dots
 
+     
      if(squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
         squares[pacmanCurrentIndex].classList.remove('pac-dot')
         scoreDisplay.innerHTML = score
         score ++
 
      }
+
+     checkForWin() 
+     
   }
   document.addEventListener('keyup', movePacman)
-  moveBlinky()
 
+
+  moveBlinky()
+  
+  
 
 
 // Rest of the ghosts
@@ -227,8 +234,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }, ghost.speed)
   }
 
+  function checkForWin() {
+      if ( score === 233){
+        document.removeEventListener('keyup', movePacman)
+        ghosts.forEach(ghost => clearInterval(ghost.timerId))
+        alert("YOU WON!")
+        
+    }
+    }
 
 
+    function checkForLost() {
+      if ( squares[ghost.currentIndex].classList.contains('pac-man') &&
+      squares[blinkyCurrentIndex].classList.contains('pac-man')) {
+        document.removeEventListener('keyup', movePacman)
+        ghosts.forEach(ghost => clearInterval(ghost.timerId))
+        alert("YOU LOST!")
+      }
+    }
+    
 
    
      
