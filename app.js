@@ -162,37 +162,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Rest of the ghosts
 // Create ghosts using Constructors
-
-class Ghost {
-  constructor(className, startIndex, speed) {
-    this.className = className
-    this.startIndex = startIndex
-    this.speed = speed
-    this.currentIndex = startIndex
-    this.isScared = false
-    this.timerId = NaN
+  
+          //create ghosts using Constructors
+  class Ghost {
+    constructor(className, startIndex, speed) {
+      this.className = className
+      this.startIndex = startIndex
+      this.speed = speed
+      this.currentIndex = startIndex
+      this.timerId = NaN
+    }
   }
-}
 
-ghosts = [
+  //all my ghosts
+  ghosts = [
+    
     new Ghost('pinky', 222, 400),
-    new Ghost('inky', 505, 300),
-    new Ghost('clyde', 530, 500)
-]
+    new Ghost('inky', 481, 300),
+    new Ghost('clyde', 585, 500)
+    ]
 
-//Draw my ghosts onto the grid
+  //draw my ghosts on the grid
   ghosts.forEach(ghost => {
-  squares[ghost.currentIndex].classList.add(ghost.className)
-  squares[ghost.currentIndex].classList.add('ghost')
-  })
+    squares[ghost.currentIndex].classList.add(ghost.className)
+    squares[ghost.currentIndex].classList.add('ghost')
+    })
 
-  //move ghosts randomly
-     ghosts.forEach(ghost=> moveGhost(ghost))
+  //move the Ghosts randomly
+  ghosts.forEach(ghost => moveGhost(ghost))
 
-   function moveGhost() {
-    const ghostDirections = [-1, +1, width, -width]
-    let ghostDirection = ghostDirections[Math.floor(Math.random() * ghostDirections.length)]
-   }
+  function moveGhost(ghost) {
+    const directions =  [-1, +1, width, -width]
+    let direction = directions[Math.floor(Math.random() * directions.length)]
+
+    ghost.timerId = setInterval(function() {
+      //if the next squre your ghost is going to go to does not have a ghost and does not have a wall
+      if  (!squares[ghost.currentIndex + direction].classList.contains('ghost') &&
+        !squares[ghost.currentIndex + direction].classList.contains('wall') ) {
+          //remove the ghosts classes
+          squares[ghost.currentIndex].classList.remove(ghost.className)
+          squares[ghost.currentIndex].classList.remove('ghost')
+          //move into that space
+          ghost.currentIndex += direction
+          squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+      //else find a new random direction ot go in
+      } else direction = directions[Math.floor(Math.random() * directions.length)]
+
+    }, ghost.speed)
+  }
+
+
+
 
    
      
