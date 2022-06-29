@@ -54,16 +54,25 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     createBoard()
-    moveBlinky()
+    
     
   
     //draw pacman onto the board
-    let pacmanCurrentIndex = 502
+    let pacmanCurrentIndex = 490
     squares[pacmanCurrentIndex].classList.add('pac-man')
   
-    //draw blinky on the board
+    //draw bghosts on the board
     let blinkyCurrentIndex = 197
     squares[blinkyCurrentIndex].classList.add('blinky')
+
+    let pinkyCurrentIndex = 222
+    squares[pinkyCurrentIndex].classList.add('pinky')
+
+    let inkyCurrentIndex = 533
+    squares[inkyCurrentIndex].classList.add('inky')
+
+    let clydeCurrentIndex = 558
+    squares[clydeCurrentIndex].classList.add('clyde')
   
     //get the coordinates of pacman or blinky on the grid with X and Y axis
     function getCoordinates(index) {
@@ -112,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
         if(squares[blinkyCurrentIndex].classList.contains('pac-man')) clearInterval(ghostimerId)
   
-      }, 300)
+      }, 200)
     }
 
 
@@ -138,6 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pacmanCurrentIndex % width < width-1 &&
           !squares[pacmanCurrentIndex +1].classList.contains('wall'))
           pacmanCurrentIndex +=1
+          if (squares[pacmanCurrentIndex +1] === squares[392]) {
+            pacmanCurrentIndex = 364
+          }
           break
        case 40:
         if (pacmanCurrentIndex % width < width * width &&
@@ -151,4 +163,5 @@ document.addEventListener('DOMContentLoaded', () => {
      squares[pacmanCurrentIndex].classList.add('pac-man')
   }
   document.addEventListener('keyup', movePacman)
+  moveBlinky()
   })
