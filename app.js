@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
         //add layout to the board
         if(layout[i] === 1) {
           squares[i].classList.add('wall')
+        } else if(layout[i] === 0) {
+          squares[i].classList.add('pac-dot')
         }
       }
     }
