@@ -61,18 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let pacmanCurrentIndex = 490
     squares[pacmanCurrentIndex].classList.add('pac-man')
   
-    //draw bghosts on the board
+    //draw ghost on the board
     let blinkyCurrentIndex = 197
     squares[blinkyCurrentIndex].classList.add('blinky')
 
-    let pinkyCurrentIndex = 222
-    squares[pinkyCurrentIndex].classList.add('pinky')
-
-    let inkyCurrentIndex = 533
-    squares[inkyCurrentIndex].classList.add('inky')
-
-    let clydeCurrentIndex = 558
-    squares[clydeCurrentIndex].classList.add('clyde')
+    
   
     //get the coordinates of pacman or blinky on the grid with X and Y axis
     function getCoordinates(index) {
@@ -164,4 +157,46 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   document.addEventListener('keyup', movePacman)
   moveBlinky()
+
+
+
+// Rest of the ghosts
+// Create ghosts using Constructors
+
+class Ghost {
+  constructor(className, startIndex, speed) {
+    this.className = className
+    this.startIndex = startIndex
+    this.speed = speed
+    this.currentIndex = startIndex
+    this.isScared = false
+    this.timerId = NaN
+  }
+}
+
+ghosts = [
+    new Ghost('pinky', 222, 400),
+    new Ghost('inky', 505, 300),
+    new Ghost('clyde', 530, 500)
+]
+
+//Draw my ghosts onto the grid
+  ghosts.forEach(ghost => {
+  squares[ghost.currentIndex].classList.add(ghost.className)
+  squares[ghost.currentIndex].classList.add('ghost')
   })
+
+  //move ghosts randomly
+     ghosts.forEach(ghost=> moveGhost(ghost))
+
+   function moveGhost() {
+    const ghostDirections = [-1, +1, width, +width]
+    let ghostDirection = ghostDirections[Math.floor(Math.random() * ghostDirections.length)]
+   }
+    
+  })
+
+
+
+
+    
