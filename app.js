@@ -173,6 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
      }
 
      checkForWin() 
+     checkForLost()
      
   }
   document.addEventListener('keyup', movePacman)
@@ -232,26 +233,27 @@ document.addEventListener('DOMContentLoaded', () => {
       } else direction = directions[Math.floor(Math.random() * directions.length)]
 
     }, ghost.speed)
+  
   }
 
   function checkForWin() {
       if ( score === 233){
         document.removeEventListener('keyup', movePacman)
         ghosts.forEach(ghost => clearInterval(ghost.timerId))
-        alert("YOU WON!")
+        setTimeout(function(){ alert("You Won!"); }, 500)
         
     }
     }
 
 
     function checkForLost() {
-      if ( squares[ghost.currentIndex].classList.contains('pac-man') &&
-      squares[blinkyCurrentIndex].classList.contains('pac-man')) {
-        document.removeEventListener('keyup', movePacman)
+      if (squares[pacmanCurrentIndex].classList.contains('ghost', 'blinky')) {
         ghosts.forEach(ghost => clearInterval(ghost.timerId))
-        alert("YOU LOST!")
+        document.removeEventListener('keyup', movePacman)
+        setTimeout(function(){ alert("Game Over"); }, 500)
       }
-    }
+      }
+    
     
 
    
