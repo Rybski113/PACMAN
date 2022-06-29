@@ -190,13 +190,11 @@ ghosts = [
      ghosts.forEach(ghost=> moveGhost(ghost))
 
    function moveGhost() {
-    const ghostDirections = [-1, +1, width, +width]
+    const ghostDirections = [-1, +1, width, -width]
     let ghostDirection = ghostDirections[Math.floor(Math.random() * ghostDirections.length)]
    }
+
+   
+     
     
   })
-
-
-
-
-    
