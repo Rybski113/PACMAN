@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const width = 28
     const grid = document.querySelector('.grid')
+    const scoreDisplay = document.getElementById('score')
+    let score = 0
     const layout = [
       1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
       1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -46,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.appendChild(square)
         squares.push(square)
   
+        
 
         //add layout to the board
         if(layout[i] === 1) {
@@ -75,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
   
-    //move blinky
+    //move blinky (smarter ghost)
     function moveBlinky() {
       const directions =  [-1, +1, +width, -width]
       let ghostimerId  = NaN
@@ -156,6 +159,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
      squares[pacmanCurrentIndex].classList.add('pac-man')
+
+
+
+     // eating dots
+
+     if(squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
+        squares[pacmanCurrentIndex].classList.remove('pac-dot')
+        scoreDisplay.innerHTML = score
+        score ++
+
+     }
   }
   document.addEventListener('keyup', movePacman)
   moveBlinky()
