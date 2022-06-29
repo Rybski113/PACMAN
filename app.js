@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.appendChild(square)
         squares.push(square)
   
+
         //add layout to the board
         if(layout[i] === 1) {
           squares[i].classList.add('wall')
@@ -53,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     createBoard()
+    moveBlinky()
+    
   
     //draw pacman onto the board
     let pacmanCurrentIndex = 502
@@ -111,7 +114,41 @@ document.addEventListener('DOMContentLoaded', () => {
   
       }, 300)
     }
-  
-  
-    moveBlinky()
+
+
+    //move pacman
+  function movePacman(e) {
+     squares[pacmanCurrentIndex].classList.remove('pac-man')
+     
+     switch(e.keyCode) {
+       case 37:
+        if (pacmanCurrentIndex % width !==0 &&
+          !squares[pacmanCurrentIndex -1].classList.contains('wall'))
+          pacmanCurrentIndex -=1
+          if (squares[pacmanCurrentIndex -1] === squares[363]) {
+            pacmanCurrentIndex = 391
+          }
+          break
+       case 38:
+        if (pacmanCurrentIndex - width >= 0 && 
+          !squares[pacmanCurrentIndex].classList.contains('wall'))
+          pacmanCurrentIndex -= width
+          break
+       case 39:
+        if (pacmanCurrentIndex % width < width-1 &&
+          !squares[pacmanCurrentIndex +1].classList.contains('wall'))
+          pacmanCurrentIndex +=1
+          break
+       case 40:
+        if (pacmanCurrentIndex % width < width * width &&
+          !squares[pacmanCurrentIndex].classList.contains('wall'))
+          pacmanCurrentIndex += width
+          break
+       
+     }
+    
+
+     squares[pacmanCurrentIndex].classList.add('pac-man')
+  }
+  document.addEventListener('keyup', movePacman)
   })
