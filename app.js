@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let direction = directions[Math.floor(Math.random() * directions.length)]
   
       ghostimerId = setInterval(function() {
-        console.log(blinkyCurrentIndex)
+        
         if  (!squares[blinkyCurrentIndex + direction].classList.contains('wall')) {
             //remove the ghosts classes
             squares[blinkyCurrentIndex].classList.remove('blinky')
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
               if ((blinkyNextY - pacManY) > (blinkyY - pacManY)) {
                 return true
               } else return false
-            }
+            } 
             if (isXCoordCloser() || isYCoordCloser()) {
               blinkyCurrentIndex += direction
               squares[blinkyCurrentIndex].classList.add('blinky')
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(squares[blinkyCurrentIndex].classList.contains('pac-man')) clearInterval(ghostimerId)
   
       }, 200)
-    }
+    }   moveBlinky()
 
 
     //move pacman
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keyup', movePacman)
 
 
-  moveBlinky()
+
   
   
           //create ghosts using Constructors
@@ -254,10 +254,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function powerPelletEaten() {
      if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
+      squares[pacmanCurrentIndex].classList.remove('power-pellet')
       score += 10
       ghosts.forEach(ghost => ghost.isScared = true)
-      setTimeout(unScareGhosts, 1000)
-      squares[pacmanCurrentIndex].classList.remove('power-pellet')
+      setTimeout(unScareGhosts, 10000)
+      
      }
   }
 
