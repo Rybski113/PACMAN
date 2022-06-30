@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
           squares[i].classList.add('wall')
         } else if(layout[i] === 0) {
           squares[i].classList.add('pac-dot')
+        } else if (layout[i] === 3) {
+          squares[i].classList.add('power-pellet')
         }
       }
     }
@@ -170,8 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreDisplay.innerHTML = score
         score ++
 
-     }
+       
 
+     }
+     powerPelletEaten()
      checkForWin() 
      checkForLost()
      
@@ -234,6 +238,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }, ghost.speed)
   
+  }
+
+
+  function powerPelletEaten() {
+     if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
+      score += 10
+      squares[pacmanCurrentIndex].classList.remove('power-pellet')
+     }
   }
 
   function checkForWin() {
