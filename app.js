@@ -186,11 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
   moveBlinky()
   
   
-
-
-// Rest of the ghosts
-// Create ghosts using Constructors
-  
           //create ghosts using Constructors
   class Ghost {
     constructor(className, startIndex, speed) {
@@ -198,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.startIndex = startIndex
       this.speed = speed
       this.currentIndex = startIndex
+      this.isScared = false
       this.timerId = NaN
     }
   }
@@ -236,6 +232,21 @@ document.addEventListener('DOMContentLoaded', () => {
       //else find a new random direction ot go in
       } else direction = directions[Math.floor(Math.random() * directions.length)]
 
+
+         // when ghost are scared
+
+         if(ghost.isScared) {
+          squares[ghost.currentIndex].classList.add('scared-ghost')
+         }
+
+         if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
+          squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+          ghost.currentIndex = ghost.startIndex
+          score += 20
+          squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+         }
+
+
     }, ghost.speed)
   
   }
@@ -244,12 +255,18 @@ document.addEventListener('DOMContentLoaded', () => {
   function powerPelletEaten() {
      if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
       score += 10
+      ghosts.forEach(ghost => ghost.isScared = true)
+      setTimeout(unScareGhosts, 1000)
       squares[pacmanCurrentIndex].classList.remove('power-pellet')
      }
   }
 
+  function unScareGhosts() {
+    ghosts.forEach(ghost => ghost.isScared = false)
+  }
+
   function checkForWin() {
-      if ( score === 233){
+      if ( score === 273){
         document.removeEventListener('keyup', movePacman)
         ghosts.forEach(ghost => clearInterval(ghost.timerId))
         setTimeout(function(){ alert("You Won!"); }, 500)
@@ -259,7 +276,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function checkForLost() {
-      if (squares[pacmanCurrentIndex].classList.contains('ghost', 'blinky')) {
+      if (squares[pacmanCurrentIndex].classList.contains('ghost', 'blinky') &&
+          !squares[pacmanCurrentIndex].classList.contains('scared-ghost')) 
+       {
         ghosts.forEach(ghost => clearInterval(ghost.timerId))
         document.removeEventListener('keyup', movePacman)
         setTimeout(function(){ alert("Game Over"); }, 500)
