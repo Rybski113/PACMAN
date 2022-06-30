@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
           break
        case 38:
         if (pacmanCurrentIndex - width >= 0 && 
-          !squares[pacmanCurrentIndex].classList.contains('wall'))
+          !squares[pacmanCurrentIndex - width].classList.contains('wall'))
           pacmanCurrentIndex -= width
           break
        case 39:
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
           break
        case 40:
         if (pacmanCurrentIndex % width < width * width &&
-          !squares[pacmanCurrentIndex].classList.contains('wall'))
+          !squares[pacmanCurrentIndex + width].classList.contains('wall'))
           pacmanCurrentIndex += width
           break
        
