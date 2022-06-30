@@ -80,49 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   
   
-    //move blinky (smarter ghost)
-    function moveBlinky() {
-      const directions =  [-1, +1, +width, -width]
-      let ghostimerId  = NaN
-      let direction = directions[Math.floor(Math.random() * directions.length)]
-  
-      ghostimerId = setInterval(function() {
-        
-        if  (!squares[blinkyCurrentIndex + direction].classList.contains('wall')) {
-            //remove the ghosts classes
-            squares[blinkyCurrentIndex].classList.remove('blinky')
-            //move into that space
-  
-            const [blinkyX, blinkyY] = getCoordinates(blinkyCurrentIndex)
-            const [pacManX, pacManY] = getCoordinates(pacmanCurrentIndex)
-            const [blinkyNextX, blinkyNextY] = getCoordinates(blinkyCurrentIndex + direction)
-  
-            function isXCoordCloser() {
-              if ((blinkyNextX - pacManX) > (blinkyX - pacManX)){
-                return true
-              } else return false
-           }
-  
-            function isYCoordCloser() {
-              if ((blinkyNextY - pacManY) > (blinkyY - pacManY)) {
-                return true
-              } else return false
-            } 
-            if (isXCoordCloser() || isYCoordCloser()) {
-              blinkyCurrentIndex += direction
-              squares[blinkyCurrentIndex].classList.add('blinky')
-  
-            } else {
-              squares[blinkyCurrentIndex].classList.add('blinky')
-              direction = directions[Math.floor(Math.random() * directions.length)]
-          }
-          squares[blinkyCurrentIndex].classList.add('blinky')
-          } else direction = directions[Math.floor(Math.random() * directions.length)]
-  
-        if(squares[blinkyCurrentIndex].classList.contains('pac-man')) clearInterval(ghostimerId)
-  
-      }, 200)
-    }   moveBlinky()
+    
 
 
     //move pacman
@@ -176,8 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
      }
      powerPelletEaten()
-     checkForWin() 
      checkForLost()
+     checkForWin() 
+     
      
   }
   document.addEventListener('keyup', movePacman)
@@ -200,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //all my ghosts
   ghosts = [
-    
+    new Ghost('blinky', 197, 250),
     new Ghost('pinky', 222, 400),
     new Ghost('inky', 481, 300),
     new Ghost('clyde', 585, 500)
@@ -215,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //move the Ghosts randomly
   ghosts.forEach(ghost => moveGhost(ghost))
 
+
   function moveGhost(ghost) {
     const directions =  [-1, +1, width, -width]
     let direction = directions[Math.floor(Math.random() * directions.length)]
@@ -225,31 +185,32 @@ document.addEventListener('DOMContentLoaded', () => {
         !squares[ghost.currentIndex + direction].classList.contains('wall') ) {
           //remove the ghosts classes
           squares[ghost.currentIndex].classList.remove(ghost.className)
-          squares[ghost.currentIndex].classList.remove('ghost')
+          squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost')
           //move into that space
           ghost.currentIndex += direction
           squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
       //else find a new random direction ot go in
       } else direction = directions[Math.floor(Math.random() * directions.length)]
 
+      //if the ghost is currently scared
+      if (ghost.isScared) {
+        squares[ghost.currentIndex].classList.add('scared-ghost')
+      }
 
-         // when ghost are scared
-
-         if(ghost.isScared) {
-          squares[ghost.currentIndex].classList.add('scared-ghost')
-         }
-
-         if (ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
-          squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
-          ghost.currentIndex = ghost.startIndex
-          score += 20
-          squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
-         }
-
-
+      //if the ghost is currently scared and pacman is on it
+      if(ghost.isScared && squares[ghost.currentIndex].classList.contains('pac-man')) {
+        squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+        ghost.currentIndex = ghost.startIndex
+        score +=100
+        squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+      }
+    checkForLost()
     }, ghost.speed)
-  
   }
+
+  
+  
+  
 
 
   function powerPelletEaten() {
@@ -267,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checkForWin() {
-      if ( score === 273){
+      if ( score === 274){
         document.removeEventListener('keyup', movePacman)
         ghosts.forEach(ghost => clearInterval(ghost.timerId))
         setTimeout(function(){ alert("You Won!"); }, 500)
