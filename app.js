@@ -210,8 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
   
-  
-
 
   function powerPelletEaten() {
      if (squares[pacmanCurrentIndex].classList.contains('power-pellet')) {
@@ -229,8 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function checkForWin() {
       if ( score === 274){
-        document.removeEventListener('keyup', movePacman)
         ghosts.forEach(ghost => clearInterval(ghost.timerId))
+        document.removeEventListener('keyup', movePacman)
         setTimeout(function(){ alert("You Won!"); }, 500)
         
     }
